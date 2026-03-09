@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyankatesh | Developer Portfolio — Infinity Castle</title>
+    <meta name="description"
+        content="Portfolio of Vyankatesh — BCA student passionate about programming, cybersecurity, and building digital solutions. An immersive Demon Slayer Infinity Castle experience.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Global Video Background -->
+    <video autoplay muted loop playsinline class="global-video-bg">
+        <source src="asstes/video/projectvideo.mp4.mp4" type="video/mp4">
+    </video>
+
+    <!-- ── THUNDER BREATHING LOADING SCREEN ── -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-bg-flash"></div>
+        <div class="loading-center">
+            <svg class="loading-katana" viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
+                <path class="katana-blade" d="M 0 10 Q 50 8 180 10 L 200 12 L 180 14 Q 50 12 0 10 Z" fill="#ffffff" />
+                <rect class="katana-guard" x="35" y="5" width="4" height="10" fill="#1a0f2e" />
+                <rect class="katana-handle" x="0" y="8" width="35" height="4" fill="#FFC400" />
+                <!-- Lightning trailing paths -->
+                <path class="lightning-strike" d="M 40 10 Q 80 5 100 15 T 160 5 L 200 10" fill="none" stroke="#00BFFF"
+                    stroke-width="2" stroke-dasharray="300" stroke-dashoffset="300" />
+            </svg>
+            <div class="spark-container"></div>
+            <p class="loading-text">Entering the Thunder Breathing Interface</p>
+            <div class="loading-ring"></div>
+        </div>
+        <div class="loading-slash"></div>
+    </div>
+    <!-- Katana Cursor System -->
+    <canvas id="trailCanvas"></canvas>
+    <div class="katana-cursor" id="katanaCursor">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="katana-svg" id="katanaSvg">
+            <defs>
+                <filter id="sword-glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="1.5" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+                <linearGradient id="bladeGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="30%" stop-color="#ef4444" />
+                    <stop offset="100%" stop-color="#6b21a8" />
+                </linearGradient>
+            </defs>
+            <path d="M 0 0 Q 15 10 32 32 L 28 36 Q 10 15 0 0" fill="url(#bladeGrad)" filter="url(#sword-glow)" />
+            <path d="M 0 0 Q 15 10 32 32 L 30 34 Q 10 15 0 0" fill="#ffffff" opacity="0.6" />
+            <rect x="27" y="32" width="12" height="4" transform="rotate(-45 30 34)" fill="#050508" stroke="#dc2626"
+                stroke-width="1.5" />
+            <rect x="30" y="34" width="8" height="22" transform="rotate(-45 30 34)" fill="#1a0a2e" stroke="#a855f7"
+                stroke-width="1" />
+            <line x1="30" y1="39" x2="38" y2="39" transform="rotate(-45 30 34)" stroke="#dc2626" stroke-width="1.5" />
+            <line x1="30" y1="44" x2="38" y2="44" transform="rotate(-45 30 34)" stroke="#a855f7" stroke-width="1.5" />
+            <line x1="30" y1="49" x2="38" y2="49" transform="rotate(-45 30 34)" stroke="#dc2626" stroke-width="1.5" />
+            <line x1="30" y1="54" x2="38" y2="54" transform="rotate(-45 30 34)" stroke="#a855f7" stroke-width="1.5" />
+        </svg>
+        <div class="katana-spark"></div>
+    </div>
+
+    <!-- Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Infinity Castle Grid Background -->
+    <div class="infinity-grid"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">
+            <span class="logo-text">V<span class="logo-accent">.</span></span>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-greeting reveal-text">こんにちは — Welcome</p>
+            <h1 class="hero-title reveal-text">Hi, I'm <span class="text-glow">Vyankatesh</span></h1>
+            <div class="hero-tags reveal-text">
+                <span class="tag">BCA Student</span>
+                <span class="tag-separator">•</span>
+                <span class="tag">Programmer</span>
+                <span class="tag-separator">•</span>
+                <span class="tag">Cybersecurity Enthusiast</span>
+            </div>
+            <p class="hero-subtitle reveal-text">Passionate about programming, cybersecurity, and building digital
+                solutions.</p>
+            <p class="hero-quote reveal-text">"I enjoy learning new technologies, experimenting with ideas, and
+                constantly improving my skills through projects and practice."</p>
+            <p class="hero-tagline reveal-text">Always learning. Always improving.</p>
+            <div class="hero-buttons reveal-text">
+                <a href="#projects" class="btn btn-primary breathing">
+                    <span>View Projects</span>
+                    <div class="btn-glow"></div>
+                </a>
+                <a href="#contact" class="btn btn-secondary breathing">
+                    <span>Contact Me</span>
+                    <div class="btn-glow"></div>
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- Katana Divider -->
+    <div class="katana-divider">
+        <div class="katana-line"></div>
+    </div>
+
+    <!-- About Section -->
+    <section class="section about-section" id="about">
+        <div class="section-container">
+            <h2 class="section-title reveal-section">
+                <span class="title-kanji">自己紹介</span>
+                About Me
+            </h2>
+            <div class="about-card glass-card reveal-section">
+                <div class="about-image-wrapper">
+                    <div class="about-image-border"></div>
+                    <img src="asstes/images/profile.jpg.jpeg" alt="Vyankatesh" class="about-image">
+                    <div class="about-image-glow"></div>
+                </div>
+                <div class="about-text">
+                    <p>I'm a BCA student who enjoys exploring the world of technology. I'm particularly interested in
+                        programming, cybersecurity, and building digital solutions that solve real problems.</p>
+                    <p>I enjoy learning new tools, experimenting with ideas, and continuously improving my skills
+                        through practice and projects.</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">7+</span>
+                            <span class="stat-label">Technologies</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Curiosity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Katana Divider -->
+    <div class="katana-divider">
+        <div class="katana-line"></div>
+    </div>
+
+    <!-- Skills Section -->
+    <section class="section skills-section" id="skills">
+        <div class="section-container">
+            <h2 class="section-title reveal-section">
+                <span class="title-kanji">武器庫</span>
+                Tech Arsenal
+            </h2>
+            <div class="skills-grid">
+                <div class="skill-card glass-card reveal-section" data-delay="0">
+                    <div class="skill-icon">⚡</div>
+                    <h3>C Programming</h3>
+                    <div class="skill-bar">
+                        <div class="skill-fill" data-level="80"></div>
+                    </div>
+                    <div class="skill-glow"></div>
+                </div>
+                <div class="skill-card glass-card reveal-section" data-delay="1">
+                    <div class="skill-icon">🔥</div>
+                    <h3>C++</h3>
+                    <div class="skill-bar">
+                        <div class="skill-fill" data-level="75"></div>
+                    </div>
+                    <div class="skill-glow"></div>
+                </div>
+                <div class="skill-card glass-card reveal-section" data-delay="2">
+                    <div class="skill-icon">🌐</div>
+                    <h3>HTML</h3>
+                    <div class="skill-bar">
+                        <div class="skill-fill" data-level="85"></div>
+                    </div>
+                    <div class="skill-glow"></div>
+                </div>
+                <div class="skill-card glass-card reveal-section" data-delay="3">
+                    <div class="skill-icon">🛡️</div>
+                    <h3>Cybersecurity Basics</h3>
+                    <div class="skill-bar">
+                        <div class="skill-fill" data-level="65"></div>
+                    </div>
+                    <div class="skill-glow"></div>
+                </div>
+                <div class="skill-card glass-card reveal-section" data-delay="4">
+                    <div class="skill-icon">📊</div>
+                    <h3>Excel / Data Analysis</h3>
+                    <div class="skill-bar">
+                        <div class="skill-fill" data-level="70"></div>
+                    </div>
+                    <div class="skill-glow"></div>
+                </div>
+                <div class="skill-card glass-card reveal-section" data-delay="5">
+                    <div class="skill-icon">🧩</div>
+                    <h3>Problem Solving</h3>
+                    <div class="skill-bar">
+                        <div class="skill-fill" data-level="85"></div>
+                    </div>
+                    <div class="skill-glow"></div>
+                </div>
+                <div class="skill-card glass-card reveal-section" data-delay="6">
+                    <div class="skill-icon">🔗</div>
+                    <h3>Git / GitHub</h3>
+                    <div class="skill-bar">
+                        <div class="skill-fill" data-level="70"></div>
+                    </div>
+                    <div class="skill-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Katana Divider -->
+    <div class="katana-divider">
+        <div class="katana-line"></div>
+    </div>
+
+    <!-- Projects Section -->
+    <section class="section projects-section" id="projects">
+        <div class="section-container">
+            <h2 class="section-title reveal-section">
+                <span class="title-kanji">創造物</span>
+                My Creations
+            </h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card glass-card reveal-section">
+                    <div class="project-header">
+                        <div class="project-icon">📁</div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="GitHub" target="_blank" rel="noopener">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Student Result Management</h3>
+                    <p class="project-desc">A complete system to manage student results with data entry, calculations,
+                        and report generation.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">C</span>
+                        <span class="project-tag">File I/O</span>
+                    </div>
+                    <div class="project-card-glow"></div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card glass-card reveal-section">
+                    <div class="project-header">
+                        <div class="project-icon">🔐</div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="GitHub" target="_blank" rel="noopener">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Password Generator</h3>
+                    <p class="project-desc">A secure random password generator with customizable length and character
+                        options.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">C++</span>
+                        <span class="project-tag">Security</span>
+                    </div>
+                    <div class="project-card-glow"></div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card glass-card reveal-section">
+                    <div class="project-header">
+                        <div class="project-icon">📝</div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="GitHub" target="_blank" rel="noopener">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Mini To-Do List</h3>
+                    <p class="project-desc">A clean task manager with add, complete, and delete functionalities for
+                        daily productivity.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">JavaScript</span>
+                    </div>
+                    <div class="project-card-glow"></div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card glass-card reveal-section">
+                    <div class="project-header">
+                        <div class="project-icon">📦</div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="GitHub" target="_blank" rel="noopener">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Inventory Tracker</h3>
+                    <p class="project-desc">Track and manage inventory items with real-time stock updates and category
+                        sorting.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">C</span>
+                        <span class="project-tag">Data Structures</span>
+                    </div>
+                    <div class="project-card-glow"></div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card glass-card reveal-section">
+                    <div class="project-header">
+                        <div class="project-icon">🧮</div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="GitHub" target="_blank" rel="noopener">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Calculator App</h3>
+                    <p class="project-desc">A feature-rich calculator with advanced operations, styled with a dark
+                        modern interface.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">C++</span>
+                        <span class="project-tag">OOP</span>
+                    </div>
+                    <div class="project-card-glow"></div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card glass-card reveal-section">
+                    <div class="project-header">
+                        <div class="project-icon">🌐</div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" title="GitHub" target="_blank" rel="noopener">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Personal Portfolio Website</h3>
+                    <p class="project-desc">This very portfolio — a cinematic Demon Slayer inspired developer portfolio
+                        with 3D effects.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">HTML</span>
+                        <span class="project-tag">CSS</span>
+                        <span class="project-tag">JavaScript</span>
+                    </div>
+                    <div class="project-card-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Katana Divider -->
+    <div class="katana-divider">
+        <div class="katana-line"></div>
+    </div>
+
+    <!-- Experience / Journey Section -->
+    <section class="section experience-section" id="experience">
+        <div class="section-container">
+            <h2 class="section-title reveal-section">
+                <span class="title-kanji">旅路</span>
+                My Journey
+            </h2>
+            <div class="timeline">
+                <div class="timeline-line"></div>
+
+                <div class="timeline-item reveal-section" data-delay="0">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content glass-card">
+                        <span class="timeline-date">2023 — Present</span>
+                        <h3>Bachelor of Computer Applications (BCA)</h3>
+                        <p>Pursuing BCA, building strong foundations in programming, databases, networking, and software
+                            development.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-section" data-delay="1">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content glass-card">
+                        <span class="timeline-date">2023</span>
+                        <h3>Started Learning Programming</h3>
+                        <p>Began learning C and C++, building fundamental problem-solving and logical thinking skills.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-section" data-delay="2">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content glass-card">
+                        <span class="timeline-date">2024</span>
+                        <h3>Cybersecurity Exploration</h3>
+                        <p>Started exploring cybersecurity fundamentals, learning about network security, ethical
+                            hacking basics, and digital safety.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-section" data-delay="3">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content glass-card">
+                        <span class="timeline-date">2024</span>
+                        <h3>First Projects Built</h3>
+                        <p>Completed multiple projects including student management systems, calculators, and portfolio
+                            websites.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-section" data-delay="4">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-content glass-card">
+                        <span class="timeline-date">2025</span>
+                        <h3>Git & GitHub Mastery</h3>
+                        <p>Adopted version control with Git and GitHub, contributing to open-source and managing project
+                            repositories.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Katana Divider -->
+    <div class="katana-divider">
+        <div class="katana-line"></div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="section-container">
+            <h2 class="section-title reveal-section">
+                <span class="title-kanji">連絡</span>
+                Get In Touch
+            </h2>
+            <div class="contact-wrapper reveal-section">
+                <div class="contact-info">
+                    <p class="contact-intro">Have a question, idea, or want to connect? Feel free to reach out. I'm
+                        always open to new opportunities and conversations.</p>
+                    <div class="contact-socials">
+                        <a href="mailto:vyankatesh@example.com" class="social-link" title="Email">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                            </svg>
+                            <span>Email</span>
+                        </a>
+                        <a href="https://linkedin.com" class="social-link" title="LinkedIn" target="_blank"
+                            rel="noopener">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                                <rect x="2" y="9" width="4" height="12" />
+                                <circle cx="4" cy="4" r="2" />
+                            </svg>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com" class="social-link" title="GitHub" target="_blank" rel="noopener">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                            </svg>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </div>
+                <form class="contact-form glass-card" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        <div class="input-glow"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        <div class="input-glow"></div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        <div class="input-glow"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary breathing">
+                        <span>Send Message</span>
+                        <div class="btn-glow"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-text">V<span class="logo-accent">.</span></span>
+                <p class="footer-tagline">Built with passion, code, and creativity.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-socials">
+                <a href="mailto:vyankatesh@example.com" title="Email">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2" />
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" title="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                    </svg>
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vyankatesh. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
